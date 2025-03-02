@@ -10,6 +10,7 @@ kubectl cluster-info
 # to see list of pods
 kubectl get pods -A
 kubectl get pods -A --show-labels
+kubectl get pods --watch # to see any changes
 
 # to run pod
 kubectl run nginx --image=docker.io/nginx
@@ -66,3 +67,5 @@ k9s
 cntrl+k to kill pods
 inside k9s 
 press y code information of pod
+
+# to see ':'- which pods? which service
