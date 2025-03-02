@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: sleep
+spec: 
+  containers:
+    - name: nginx
+      image: redhat/ubi9
+
+# it will fail it has noting just os 
+# testing kubernetes restrt the pod on failure
