@@ -46,6 +46,18 @@ kubectl scale rs replicaset-name --replicas=1
 # solution deployment
 
 
+# stateful sets
+# if example, databases with multi nodes- huge data lake, if one node delted and new 
+# created with attachment of old one(with same ip or dns) it will consider it as old one only
+# if kill pod in kube- it will be new name  by default for new one-
+# stateful sets it will not happen it will be in same name
+
+# daemon sets
+
+# jobs
+# some sort of computation job for certain time only- contianers will run fulltime
+#some load -run short time; example loading schema
+
 # annotations 
 #labels are just string- annotations are give some value to -pod-deletion-cost
 
