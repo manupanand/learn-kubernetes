@@ -69,3 +69,8 @@ inside k9s
 press y code information of pod
 
 # to see ':'- which pods? which service
+
+# we can do curl from one contianer inside a pod to coonect to other
+ kubectl exec -it contianer-name
+ curl contianer-name
+ curl name.default(namespace).svc.cluster.local

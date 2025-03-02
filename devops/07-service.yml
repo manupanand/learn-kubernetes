@@ -23,3 +23,12 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80 #can opn mutiple ports for different continer in same service
+---
+apiVersion: v1 
+kind: Pod
+metadata:
+ name: debug-06
+spec: 
+  containers:
+    - name: debug 
+      image: docker.io/rkalluru/debug
