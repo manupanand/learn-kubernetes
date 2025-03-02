@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata: 
-  name: replicaset01
+  name: frontendreplica
   labels:
     app: nginx
 spec: # spec of replica set
