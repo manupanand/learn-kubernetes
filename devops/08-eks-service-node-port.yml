@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nginx-06
+  labels: # this we use to tag to other service
+    appName: nginx
+    example: service
+spec: 
+  containers:
+      - name: nginx
+        image: docker.io/nginx
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-06
+spec:
+  selector:
+    appName: nginx
+    example: service
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80 #can opn mutiple ports for different continer in same service
+---
+apiVersion: v1 
+kind: Pod
+metadata:
+ name: debug-06
+spec: 
+  containers:
+    - name: debug 
+      image: docker.io/rkalluru/debug
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-06-nodprt
+spec:
+  type: NodePort
+  selector:
+    appName: nginx
+    example: service
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80 # by default it will open a random port

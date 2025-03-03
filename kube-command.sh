@@ -11,6 +11,7 @@ kubectl cluster-info
 kubectl get pods -A
 kubectl get pods -A --show-labels
 kubectl get pods --watch # to see any changes
+kubectl get pods --wide # more information node ip, ip 
 
 # to run pod
 kubectl run nginx --image=docker.io/nginx
@@ -73,4 +74,41 @@ press y code information of pod
 # we can do curl from one contianer inside a pod to coonect to other
  kubectl exec -it contianer-name
  curl contianer-name
- curl name.default(namespace).svc.cluster.local
+ curl name.default(namespace).svc.cluster.local # inbuilt dns server
+
+  # service
+
+  cluster ip
+  type: ClusterIP 
+  # Ecpose service on a cluster internal ip- access within cluster 
+  #- by default if we dont specify type
+  # can expose service to public using ingress or Gateway
+
+  Nodeport- from kubernetes layer
+ # exposes the service on each node's ip at a static port.
+ # to make node port available-kubernetes set up cluster ip address 
+ it will open on all nodes
+
+ hostport-different like docker port
+
+
+ Load balancer
+
+ # exposes ther service externally using an external load balancer, 
+ # kubernetes doesnt provide a load balancing component
+ #can integrate our own load balancer with kubernetes
+ 
+
+ External Name-cname record
+ A- name pointing to ip
+ CNAME- name point to another cname
+ Maps the service to the contents of the external name field
+
+
+CNI- contianer network interface
+
+Headless service 
+some time no need to use load balancer
+example statefull cluster-dbs 
+one act as writer and other as reader, to know who is writer and reader, a service used 
+headless service
