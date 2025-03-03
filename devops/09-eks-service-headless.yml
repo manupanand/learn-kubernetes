@@ -75,9 +75,35 @@ spec:
   
   selector:
     appName: nginx
-    example: service
+    type: deploy
   ClusterIP: None
   ports: 
     - protocol: TCP
       port: 80
       targetPort: 80
+
+---
+
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: depl-006
+  labels:
+      appName: nginx
+      type: deploy
+ 
+spec: # spec of replica set
+  replicas: 1
+  selector: 
+    matchLabels: 
+      appName: nginx
+      type: deploy
+  template: #pod template
+    metadata:
+      labels:
+         appName: nginx
+         type: deploy
+    spec:  # spec for container
+     containers:
+      - name: nginx
+        image: docker.io/nginx # change to 1.24 after deployment

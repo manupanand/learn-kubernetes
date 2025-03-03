@@ -11,3 +11,8 @@ eksctl create cluster
  # iptables are OS level firewall
 
  eksctl create cluster --name my-cluster --region us-east-1 --node-type t3.medium
+ eksctl create cluster --name my-cluster --region us-east-1 --node-type t3.small --nodes 2
+
+
+ # delete cluster 
+ eksctl delete cluster cluster-name
