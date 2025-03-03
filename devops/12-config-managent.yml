@@ -1,0 +1,95 @@
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-config-07
+spec: 
+  containers:
+    - name: debug
+      image: docker.io/rkalluru/debug
+      # environemnt variables for roboshop
+      env:
+       - name: CATALOGUE_HOST 
+         value: "hello from catalogue"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: cm-07
+data: 
+    CATALOGUE_HOST:  "catalogue"  
+    CATALOGUE_PORT: 8080
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-config-07-cm
+spec: 
+  containers:
+    - name: debug
+      image: docker.io/rkalluru/debug
+      # environemnt variables for roboshop
+      env:
+       - name: CATALOGUE_HOST 
+         valueFrom: 
+           configMapKeyRef: 
+             name: cm-07
+             key: CATALOGUE_HOST
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-config-07-cm-env
+spec: 
+  containers:
+    - name: debug
+      image: docker.io/rkalluru/debug
+      # environemnt variables for roboshop
+      envfrom: 
+          - configMapKeyRef: 
+             name: cm-07
+            # get all values inside it
+
+# config  map as an environmet variable
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: cm-07-file
+data: 
+   catalogue.service: |
+        [Unit]
+        Description = Catalogue Service
+
+        [Service]
+        User=roboshop
+        Environment=MONGO={{secrets.MONGO}}
+        Environment=MONGO_URL={{secrets.MONGO_URL}}
+        ExecStart=/bin/node /app/server.js
+        SyslogIdentifier=catalogue
+
+        [Install]
+        WantedBy=multi-user.target
+
+# mount the file to container - config map
+---
+apiVersion: apps/v1
+kind: Pod
+metadata: 
+  name:  pod-07-cm-file
+spec:
+  containers:
+    - name: debug
+      image: docker.io/rkalluru/debug
+      volumeMounts: 
+        - name: config-volume
+          mountPath: /etc/config
+  volumes: 
+     - name: config-volume
+       configMap: 
+          name: cm-07-file

@@ -1,0 +1,92 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    appName: frontend
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+spec:
+  selector:
+    appName: catalogue
+  ports: 
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart
+spec:
+  selector:
+    appName: cart
+  ports: 
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  selector:
+    appName: user
+  ports: 
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping
+spec:
+  selector:
+    appName: shipping
+  ports: 
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+spec:
+  selector:
+    appName: payment
+  ports: 
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: depl-01
+  labels:
+     app: nginx
+ 

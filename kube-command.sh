@@ -112,3 +112,36 @@ some time no need to use load balancer
 example statefull cluster-dbs 
 one act as writer and other as reader, to know who is writer and reader, a service used 
 headless service
+
+
+# debug 
+kubectl run debug --image=docker.io/rkalluru/debug
+
+
+# log 
+kubectl logs -l -f app=nginx
+
+# config management - config map
+ for larger projects env: writing down is tedious, so it will be good 
+ to use some centralised config management for config management
+
+ @ wec an also attach complete config map values to pod
+
+  wecan also get config map inside a pod as file/ mount config map
+
+  #k9s cm to see config map
+
+#pass environment variable-yml 
+contianers: 
+  - name: 
+    env: 
+      - name: DEMO_USER
+        value: "test"
+kubectl exec -it podname -- env # to print env variable
+
+
+# resource management-cpu,memory,hugepages-in linux
+request: must and require- dedicated mandatory
+limit: if available
+one coantiner consume more resource in scenario?
+or some scaling if 50% utilization in cpu

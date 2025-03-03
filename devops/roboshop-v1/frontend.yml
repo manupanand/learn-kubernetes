@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    appName: frontend
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80 
+
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: frontend
+  labels:
+   appName: frontend
+spec: 
+  containers:
+    - name: frontend
+      image: public.ecr.aws/w8x4g9h7/roboshop-v3/frontend
+      # environemnt variables for roboshop
+      env:
+       - name: CATALOGUE_HOST 
+         value: 
+       - name: CATALOGUE_PORT 
+         value: 
+       - name: USER_HOST
+         value: 
+       - name: USER_PORT 
+         value: 
+       - name: CART_HOST
+         value: 
+       - name: CART_PORT
+         value: 
+       - name:  SHIPPING_HOST 
+         value: 
+       - name: SHIPPING_PORT 
+         value: 
+       - name:  PAYMENT_HOST
+         value: 
+       - name: PAYMENT_PORT 
+         value: 
+                    
+
+       

@@ -8,6 +8,7 @@ metadata:
 nodeGroups:
   - name: node-group-workernode
     instanceType: t3.small
+    spot: true # for spot instances
     desiredCapacity: 2
     minSize: 1
     maxSize: 3

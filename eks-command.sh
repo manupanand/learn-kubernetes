@@ -4,6 +4,7 @@ eksctl create cluster
 # configure the kubectl to connect to aws eks
 #minikube doesnt need to configure kubectl (.kube/config
 )
+after creating cluster using eksctl config kubectl for usuing kubectl
  # configure kubectl:
  aws eks update-kubeconfig --name name-of-cluster
 
@@ -16,3 +17,5 @@ eksctl create cluster
 
  # delete cluster 
  eksctl delete cluster cluster-name
+ eksctl delete cluster -f filename.yaml --force 
+ eksctl delete cluster -f filename.yaml --force --disable-nodegroup-eviction
