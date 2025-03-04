@@ -145,3 +145,17 @@ request: must and require- dedicated mandatory
 limit: if available
 one coantiner consume more resource in scenario?
 or some scaling if 50% utilization in cpu
+
+# to monitor pod cpu/memory utulization
+kubectl top pod podname
+
+# namespace quota-resource[cost optimization the new stack]
+https://thenewstack.io/leveraging-namespaces-for-cost-optimization-with-kubernetes/
+
+eks kubernets metric server-monitoring
+
+
+## monitoring
+kubectl top utility # utility-pod, or specidic pod
+
+kubectl delete ns namepsace-name # all things associated with name space deleted
