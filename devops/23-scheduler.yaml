@@ -1,0 +1,38 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: nginx # labels: security:S1 pod affinity
+spec: 
+  contianers: 
+    - name: nginx 
+      image: nginx 
+  nodeName:  ip-192-168-37-66.ec2.internal # later use node label
+  # affinity and anti-affinity
+  #liking- this pods should be liked by which kinds of nodes
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: with-node-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: appType
+            operator: In
+            values:
+            - database
+      preferredDuringSchedulingIgnoredDuringExecution: # if not this it must and should schedule in some other node
+      - weight: 1 # 0-1
+        preference:
+          matchExpressions:
+          - key: another-node-label-key
+            operator: In
+            values:
+            - test
+  containers:
+  - name: with-node-affinity
+    image: registry.k8s.io/pause:3.8
+--- #pod affinity, topologykey

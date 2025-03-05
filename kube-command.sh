@@ -250,7 +250,37 @@ kubectl top node  #node level k9s :node
 
 kubectl describe pod podname
 
-# so requirement to node auroscaling and cluster autoscaling-3rd party | aws based autoscaling
+# so requirement to node auroscaling and cluster autoscaling-3rd party
+# | aws based autoscaling
 
 
+# scheduler - assigning pods to workers nodes based on
+# resource availability, labels,
+kubectl get nodes --show-labels
+# label a node
+kubectl label node node-name appType=database
+#use pod with node selector
+#node affinity #pod affinity, topologykey ,taints
+# dont want run any pod on node  ex dont want any more | or run on node only if it is allowed
+#unschedule node
+kubectl cordon node node-name
+
+ kubectl taint nodes node1-name appType=database:NoSchedule # NoExexute # PreferNoSchedule
+# nice in lunix for priorities |like pod proirity | linux less number higher priority
+# priority class |higher priority higher value- massive cluster
+# eviction
+
+# cloud controller
+# load balancer, Storage, PV, SC and PVC
+# disk attached to OS(/dev/n2)-> kubeadm (PV map os level disk)-> POD(PVC mapped to PV)
+# cloud -eks- with clloud controller -EBS storage (above is manual method)
+# automate SC-storage class-> cloud controller-> will add PVC 
+kubectl get sc
+kubectl get pvc
+kubectl describe pvc
+# eks install addons -ebs csi driver-> iam role(eks irsa - iam role for service account)
+#ima role: add provider-> copy eks openid(provider usl), in provide role
+# audience sts.amazon.com
+# i am role : webidentity-select above provider and audience
+kubectl get sa -A # get service account -ebs-csi-controller-sa
 

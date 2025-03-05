@@ -1,0 +1,17 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: nginx 
+spec: 
+  contianers: 
+    - name: nginx 
+      image: nginx 
+  #nodeName:  ip-192-168-37-66.ec2.internal # after disabling node then run this
+  # since node name is higher precedence it will schedule here
+  # make taint kubectl taint nodes node1-name appType=database:NoSchedule
+  # if to do toleration for taint
+  toleration: 
+    - key: "appType"
+      operator: "Exists"
+      effect: "NoSchedule"
+   
