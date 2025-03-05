@@ -7,6 +7,9 @@ minikube start --driver=docker
 #check cluster info
 kubectl cluster-info
 
+# name space
+kubectl create ns namespace-name
+
 # to see list of pods
 kubectl get pods -A
 kubectl get pods -A --show-labels
