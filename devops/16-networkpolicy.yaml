@@ -1,0 +1,107 @@
+apiVersion: v1 
+kind: Namespace
+metadata: 
+  name: backend # frontend and backend different
+  labels:
+    project: demo
+---
+apiVersion: v1 
+kind: Namespace 
+metadata: 
+  name: frontend
+  labels:
+    project: demo 
+---
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: debug 
+  namespace: frontend 
+  labels: 
+    appType: UI 
+spec: 
+  containers:
+    - name: debug 
+      image: docker.io/rkalluru/debug
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+   name: backend 
+   namespace: backend
+spec: 
+  selector: 
+    appType: API
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: nginx 
+  namespace: backend
+  labels: 
+    appType: API 
+spec: 
+  containers:
+    - name: nginx
+      image: docker.io/nginx 
+
+--- 
+apiVersion: networking.k8s.io/v1 
+kind: NetworkPolicy
+metadata: 
+  name: allow-only-frontend
+  namespace: backend 
+spec: 
+  podSelector: # to whom to apply to every pod {} give empty
+    matchLabels: 
+      appType: API # two policies ingress and egress
+  policyTypes:
+    - Ingress 
+    - Egress 
+  ingress: 
+    - from: 
+      - namespaceSelector:
+         matchLabels:
+           project: demo
+      - podSelector:
+         matchLabels:
+            appType: UI 
+      ports: 
+        - protocol: TCP
+          port: 6379  
+  egress:
+    - {}
+# if dont want any thing to access
+# podSelector: {}
+#policyType:
+ #- Ingress
+ #- Egress
+
+
+
+
+# need eks network policy to work
+# kubectl get pods -A
+# kubectl get daemonsets
+# daemon sets -pods- are automatically sets to those nodes as daemons # ex monitoring pods
+# edit in vi aws network policy
+# kubectl edit daemonset aws-node -n kube-system
+
+
+
+# apply and
+# kubectl exec -it debug -- bash 
+# inside curl backend(namespace).bakend(service).svc.cluster.local
+# curl ip of backend from frontend and debug, from frontend namespce
+#kubectl exec -it debug -n frontend -- bash
+#
+
+# method level network security 
+# get,post,delete etc- aws default vpc cni is not enough it is at application level
+#-service mesh-IStio/consul -frontend talk to backend without authentication/shipping->payment
+
+# r

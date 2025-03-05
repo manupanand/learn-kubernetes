@@ -12,6 +12,9 @@ kubectl get pods -A
 kubectl get pods -A --show-labels
 kubectl get pods --watch # to see any changes
 kubectl get pods --wide # more information node ip, ip 
+kubectl get pod pod-name debug -o yaml # identiy|service account can see kubectl configuration done
+kubectl get sa -n test # see servicee account - it will be default
+
 
 # to run pod
 kubectl run nginx --image=docker.io/nginx
@@ -21,8 +24,9 @@ kubectl config current-context
 kubectl config use-context minikube
 
 # execute inside contianer
-kubectl exec -it podname -c contianer-name --bash # it interactive
-
+kubectl exec -it podname -c contianer-name -- bash # it interactive
+# to login to pod in specific name space if you have same name pods
+kubectl exec -it -n frontend debug -- bash
 # api server kubectl
 kubectl api-resources # print the api resources
 kunectl api-versions #various apis in kuberenets
@@ -159,3 +163,47 @@ eks kubernets metric server-monitoring
 kubectl top utility # utility-pod, or specidic pod
 
 kubectl delete ns namepsace-name # all things associated with name space deleted
+
+# cloud trail to monitor
+
+# security
+ 
+ # how to provide authorization
+ service account 
+# why do need peprmission to pods? - within cluster| if install ArgoCD to manage-pods
+ #RBAC- role based access control-role or cluster role for user or organization
+ #role- associated with name space
+ # cluster role- non-namespace resource
+ kubectl get clusterroles
+
+ # get api-versions
+ kubectl api-versions
+
+# network policy is layer 7-pod/application level contend aware 
+# later 4 firewall-segments/Transport in security group TCP UDP
+ OSI layers
+
+ # without network policy curl of any other pod
+ from default and other name space it will be able to do curl
+
+ # method level network security 
+# get,post,delete etc- aws default vpc cni is not enough it is at application level
+#-service mesh-IStio/consul -frontend talk to backend without authentication/shipping->payment
+
+# Pod/container level security
+# Discretionary acces control-UserId/Group based access
+#SELinux Security enhansed linux
+# running as privileged or un privileged-ex: run build docker inside a docker
+# rootless docker problem? privileged contianer-risk |always unless needed run docker witn unprivileged
+# APP armor
+# Seccomp filter a procees system calls
+#Linux capabilities linux audit-SetUID,SetGid? ls-l /usr/bin |grep rws
+#security context
+#ex:when you want not to run pod as root user 
+# even if someone enter container-
+# secirity context accros cluster |OPA gatekeeper
+# API acess control
+# helm charts
+kubectl get psp # pod security policy|PSA and PSS from now
+# security scanners-twistlock defender-prisma cloud |kubeaudit
+
