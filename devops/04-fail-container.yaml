@@ -5,7 +5,7 @@ metadata:
 spec: 
   containers:
     - name: nginx
-      image: redhat/ubi9
+      image: redhat/ubi9-micro:latest
 
 # it will fail it has noting just os 
 # testing kubernetes restrt the pod on failure

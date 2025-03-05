@@ -4,8 +4,19 @@ kubectl version
 #install minikube
 minikube start --driver=docker
 
+# k9s
+: to search
+y to get yaml file
+d describe
+e for edit yaml
+
 #check cluster info
 kubectl cluster-info
+
+
+# apply file
+kubectl apply -f file.yaml
+kubeclt delete -f file.yaml
 
 # name space
 kubectl create ns namespace-name
@@ -18,7 +29,10 @@ kubectl get pods --wide # more information node ip, ip
 kubectl get pod pod-name debug -o yaml # identiy|service account can see kubectl configuration done
 kubectl get sa -n test # see servicee account - it will be default
 
-
+# delete
+kubectl delete pod <pod-name>
+kubectl delete pods --all -n <namespace>
+kubectl delete pod <pod-name> --grace-period=0 --force
 # to run pod
 kubectl run nginx --image=docker.io/nginx
 
