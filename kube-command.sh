@@ -207,3 +207,50 @@ kubectl delete ns namepsace-name # all things associated with name space deleted
 kubectl get psp # pod security policy|PSA and PSS from now
 # security scanners-twistlock defender-prisma cloud |kubeaudit
 
+# kube audit
+kubeaudit all -n namespace
+
+
+# monitoring and logging-k8s
+#install native matrix server eks
+kubectl top pod podname
+kubernetematrixserver-pod
+kubectl top pod kub-matrix-server-pod -n namespace-name
+kubectl top node  #node level k9s :node
+# health monitoring
+ probes in  k8s
+ Liveness probe, Readiness probe, Startup Probe 
+ liveness :
+  initalization  ot readiness- take time |application start time- readiness
+  readiness to liveness
+  during ready -traffic will not send
+  # tomcat vs jboss two lifecycle- 1 for start tomcat then time to start application inside tomcat
+  # using http /tcp or grpc liveness
+
+
+  # auto scaling
+  #horizontal pod acceleration hpa
+  kubectl get hpa --watch
+  # hpa has limitaion to 1 not zero
+  # hpa limitation - cpu and memory monitor- only|
+  #if application itself take 90% ? it will never come down infinite scalig will happen
+  # ex : dispatch or payment rabbitmw que messages, doesnt affect? or number of requests
+  # auto scaling based on extended options or attributes -KEDA
+
+
+  # vertical scaling, whether  
+  #we can change Pod resource after it is launched increase size,
+  # it need to kill pod- read kubecost.com/kubernetes-autoscaling/kubernetes-vpa
+  #https://www.kubecost.com/kubernetes-autoscaling/kubernetes-vpa/
+  # ned to cone autoscaler-redis
+  # problem with vpa is it will kill pod first and do scaling,
+# so we loose some request coming in between
+
+
+
+kubectl describe pod podname
+
+# so requirement to node auroscaling and cluster autoscaling-3rd party | aws based autoscaling
+
+
+
