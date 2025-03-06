@@ -14,6 +14,9 @@ e for edit yaml
 kubectl cluster-info
 
 
+kubectl get nodes  -A
+
+
 # apply file
 kubectl apply -f file.yaml
 kubeclt delete -f file.yaml

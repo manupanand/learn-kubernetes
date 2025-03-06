@@ -1,12 +1,18 @@
 # create cluster 
 eksctl create cluster
 
+
+# to see clusters listed 
+eksctl get cluster --region region-name
+
 # configure the kubectl to connect to aws eks
 #minikube doesnt need to configure kubectl (.kube/config
 )
 after creating cluster using eksctl config kubectl for usuing kubectl
  # configure kubectl:
  aws eks update-kubeconfig --name name-of-cluster
+ aws eks update-kubeconfig --region ap-south-2 --name dev-cluster
+
 
  # aws use aws vpc as vpc cni, kuberntes maintain iptables
  # iptables are OS level firewall
