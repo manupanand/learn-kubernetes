@@ -5,7 +5,7 @@ metadata:
   labels: 
      namespace: deployment-ns
 ---
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: depl-01
