@@ -4,7 +4,7 @@ metadata:
   name: sleep
 spec: 
   containers:
-    - name: nginx
+    - name: redhat-micro
       image: redhat/ubi9-micro:latest
 
 # it will fail it has noting just os 

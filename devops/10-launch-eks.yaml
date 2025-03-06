@@ -2,14 +2,28 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: dev-cluster
+  name: dev-cluster-spot
   region: ap-south-2
 
 nodeGroups:
-  - name: node-group-workernode
-    instanceType: t3.small
+  - name: node-group-workernode-spot
+    instanceType: ["t3.small","t3.medium","t4.small"]
     spot: true # for spot instances
     desiredCapacity: 2
     minSize: 1
     maxSize: 3
     volumeSize: 20
+
+
+
+# apiVersion: eksctl.io/v1alpha5
+# kind: ClusterConfig
+
+# metadata:
+#   name: spot-cluster
+#   region: us-west-2
+
+# managedNodeGroups:
+# - name: spot
+#   instanceTypes: ["c3.large","c4.large","c5.large","c5d.large","c5n.large","c5a.large"]
+#   spot: true

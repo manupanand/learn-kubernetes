@@ -1,11 +1,19 @@
+apiVersion: v1 
+kind: NameSpace
+metadata: 
+  name: deployment-ns
+  labels: 
+     namespace: deployment-ns
+---
 apiVersion: v1
 kind: Deployment
 metadata:
   name: depl-01
+  namespace: deployment-ns
   labels:
      app: nginx
-  annotations:
-     controller.kubernetes.io/pod-deletion-cost: "10"
+  # annotations:
+  #    controller.kubernetes.io/pod-deletion-cost: "10"
 spec: # spec of replica set
   replicas: 1
   selector: 
