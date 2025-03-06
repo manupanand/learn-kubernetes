@@ -5,7 +5,7 @@ metadata:
   name: dev-cluster-spot
   region: ap-south-2
 
-nodeGroups:
+managedNodeGroups:
   - name: node-group-workernode-spot
     instanceType: ["t3.small","t3.medium","t4.small"]
     spot: true # for spot instances
