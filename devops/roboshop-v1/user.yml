@@ -11,3 +11,25 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: user
+  namespace: roboshop
+  labels:
+   appName: user
+spec: 
+  containers:
+    - name: user
+      image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+      # environemnt variables for roboshop
+      env:
+       - name: MONGO_URL 
+         value: "mongodb://mongo.dev.manupanand.online:27017/users" # within kubernetes
+       - name: MONGO 
+         value: "true"
+       - name: REDIS_URL
+         value: "redis://redis.dev.manupanand.online:6379"

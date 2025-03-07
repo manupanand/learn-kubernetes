@@ -10,3 +10,24 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: cart
+  namespace: roboshop
+  labels:
+   appName: cart
+spec: 
+  containers:
+    - name: cart
+      image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+      # environemnt variables for roboshop
+      env:
+       - name: CATALOGUE_HOST 
+         value: "catalogue" # within kubernetes
+       - name: CATALOGUE_PORT 
+         value: "8080"
+       - name: REDIS_HOST
+         value: "redis.dev.manupanand.online"

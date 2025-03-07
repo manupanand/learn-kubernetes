@@ -10,3 +10,49 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: catalogue
+  namespace: roboshop
+  labels:
+   appName: catalogue
+spec: 
+  containers:
+    - name: catalogue
+      image: public.ecr.aws/w8x4g9h7/roboshop-v3/catalogue
+      # environemnt variables for roboshop
+      env:
+       - name: MONGO_URL 
+         value: "mongodb://mongo.dev.manupanand.online:27017/catalogue" # within kubernetes
+       - name: MONGO 
+         value: "true"
+# for adding data   is a job, the pod run for certain time only for up to completion
+---
+apiVersion: batch/v1
+kind: Job 
+metadata: 
+  name: catalogue-schema 
+  namespace: roboshop 
+  labels: 
+    appName: catalogue 
+spec: 
+  template: 
+    spec: 
+      contianers: 
+         - name: catalogue 
+           image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+           env: 
+             - name:  DB_TYPE
+               value: "mongo"
+             - name: APP_GIT_URL
+               value: "https://github.com/roboshop-devops-project-v3/catalogue"
+             - name: DB_HOST
+               value: "mongo.dev.manupanand.online"
+             - name: SCHEMA_FILE
+               value: db/master-data.js 
+      restartPolicy: Never
+  backoffLimit: 0
+            
+ 

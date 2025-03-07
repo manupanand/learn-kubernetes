@@ -4,7 +4,7 @@ metadata:
   name: frontend
   namespace: roboshop
 spec:
-  type: LoadBalancer
+  type: LoadBalancer # paste load balancer url browser kubectl get svc -n roboshop
   selector:
     appName: frontend
   ports: 
@@ -27,25 +27,25 @@ spec:
       # environemnt variables for roboshop
       env:
        - name: CATALOGUE_HOST 
-         value: 
+         value: "catalogue" # within kubernetes
        - name: CATALOGUE_PORT 
-         value: 
+         value: "8080"
        - name: USER_HOST
-         value: 
+         value: "user"
        - name: USER_PORT 
-         value: 
+         value: "8080"
        - name: CART_HOST
-         value: 
+         value: "cart"
        - name: CART_PORT
-         value: 
+         value: "8080"
        - name:  SHIPPING_HOST 
-         value: 
+         value: "shipping"
        - name: SHIPPING_PORT 
-         value: 
+         value: "8080"
        - name:  PAYMENT_HOST
-         value: 
+         value: "payment"
        - name: PAYMENT_PORT 
-         value: 
+         value: "8080"
                     
 
        

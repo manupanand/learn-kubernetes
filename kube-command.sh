@@ -20,6 +20,8 @@ kubectl get nodes  -A
 # apply file
 kubectl apply -f file.yaml
 kubeclt delete -f file.yaml
+# to apply everything in a folder
+kubectl apply -f folder-name
 
 # name space
 kubectl create ns namespace-name

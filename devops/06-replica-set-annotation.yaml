@@ -1,11 +1,14 @@
+apiVersion:
+
+---
 apiVersion: v1
 kind: ReplicaSet
 metadata: 
   name: replicaset01
   labels:
     app: nginx
-  annotations:
-    controller.kubernetes.io/pod-deletion-cost: "10"
+  # annotations:
+  #   controller.kubernetes.io/pod-deletion-cost: "10"
 spec: # spec of replica set
   replicas: 3
   selector: 

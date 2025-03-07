@@ -10,3 +10,87 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: shipping
+  namespace: roboshop
+  labels:
+   appName: shipping
+spec: 
+  containers:
+    - name: shipping
+      image: public.ecr.aws/w8x4g9h7/roboshop-v3/shipping
+      # environemnt variables for roboshop
+      env:
+       - name: CART_ENDPOINT
+         value: "cart:8080" # within kubernetes
+       - name: DB_HOST
+         value: "mysql.dev.manupanand.online"
+        
+
+# for adding data   is a job, the pod run for certain time only for up to completion
+---
+apiVersion: batch/v1
+kind: Job 
+metadata: 
+  name: shipping-schema 
+  namespace: roboshop 
+  labels: 
+    appName: shipping
+spec: 
+  template: 
+    spec: 
+      contianers: 
+         - name: app-user 
+           image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+           env: 
+             - name:  DB_TYPE
+               value: "mysql"
+             - name: APP_GIT_URL
+               value: "https://github.com/roboshop-devops-project-v3/shipping"
+             - name: DB_HOST
+               value: "mysql.dev.manupanand.online"
+             - name: SCHEMA_FILE
+               value: db/app-user.sql
+             - name: DB_USER
+               value: root 
+             - name: DB_PASS
+               value: RoboShop@1 
+         - name: schema
+           image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+           env: 
+             - name:  DB_TYPE
+               value: "mysql"
+             - name: APP_GIT_URL
+               value: "https://github.com/roboshop-devops-project-v3/shipping"
+             - name: DB_HOST
+               value: "mysql.dev.manupanand.online"
+             - name: SCHEMA_FILE
+               value: db/schema.sql
+             - name: DB_USER
+               value: root 
+             - name: DB_PASS
+               value: RoboShop@1 
+
+         - name: master-data 
+           image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+           env: 
+             - name:  DB_TYPE
+               value: "mysql"
+             - name: APP_GIT_URL
+               value: "https://github.com/roboshop-devops-project-v3/shipping"
+             - name: DB_HOST
+               value: "mysql.dev.manupanand.online"
+             - name: SCHEMA_FILE
+               value: db/master-data.sql
+             - name: DB_USER
+               value: root 
+             - name: DB_PASS
+               value: RoboShop@1 
+      restartPolicy: Never
+  backoffLimit: 0
+            
+ 
