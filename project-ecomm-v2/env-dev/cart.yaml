@@ -1,0 +1,9 @@
+name: cart
+port: 8080
+# env: 
+#   - name: CATALOGUE_HOST 
+#     value: "catalogue" # within kubernetes
+#   - name: CATALOGUE_PORT 
+#     value: "8080"
+#   - name: REDIS_HOST
+#     value: "redis.dev.manupanand.online"

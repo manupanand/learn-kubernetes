@@ -1,8 +1,8 @@
 apiVersion: v1 
 kind: Pod 
 metadata: 
-  name:  nginx 
+  name:  {{.Values.name}} 
 spec:  
   containers: 
-    - name: nginx 
-      image: docker.io/nginx 
+    - name:  {{.Values.name}} 
+      image: docker.io/ {{.Values.name}} 

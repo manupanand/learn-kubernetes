@@ -1,0 +1,9 @@
+name: user
+port: 8080
+# env:
+#   - name: MONGO_URL 
+#     value: "mongodb://mongo.dev.manupanand.online:27017/users" # within kubernetes
+#   - name: MONGO 
+#     value: "true"
+#   - name: REDIS_URL
+#     value: "redis://redis.dev.manupanand.online:6379"

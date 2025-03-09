@@ -1,0 +1,20 @@
+{{- if .Values.schema.enabled -}} # if values.schema is true
+apiVersion: batch/v1
+kind: Job 
+metadata: 
+  name: {{.Values.name}}-schema 
+  namespace: roboshop 
+  labels: 
+    appName: {{ .Values.name }}
+spec: 
+  template: 
+    spec: 
+      containers: 
+          - name: schema-load
+            image: docker.io/manupanand/schema:1.0
+            imagePullPolicy: Always
+            env: 
+               {{- toYaml .Values.schema.env | nintend 12 }}
+      restartPolicy: Never
+  backoffLimit: 0
+  {{- end -}}

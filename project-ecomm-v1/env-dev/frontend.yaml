@@ -1,0 +1,24 @@
+name: frontend
+port: 80
+serviceType: Loadbalancer
+env:
+  - name: CATALOGUE_HOST 
+    value: "catalogue" # within kubernetes
+  - name: CATALOGUE_PORT 
+    value: "8080"
+  - name: USER_HOST
+    value: "user"
+  - name: USER_PORT 
+    value: "8080"
+  - name: CART_HOST
+    value: "cart"
+  - name: CART_PORT
+    value: "8080"
+  - name:  SHIPPING_HOST 
+    value: "shipping"
+  - name: SHIPPING_PORT 
+    value: "8080"
+  - name:  PAYMENT_HOST
+    value: "payment"
+  - name: PAYMENT_PORT 
+    value: "8080"

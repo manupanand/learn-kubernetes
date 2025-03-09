@@ -178,6 +178,9 @@ kubectl top pod podname
 # namespace quota-resource[cost optimization the new stack]
 https://thenewstack.io/leveraging-namespaces-for-cost-optimization-with-kubernetes/
 
+
+# autoscaling- metric server
+kubectl get deployment  metric-server -n kube-system
 eks kubernets metric server-monitoring
 
 
@@ -305,4 +308,12 @@ kubectl describe pvc
 # audience sts.amazon.com
 # i am role : webidentity-select above provider and audience
 kubectl get sa -A # get service account -ebs-csi-controller-sa
+
+
+
+
+## helm
+kubectl api-version # batch/v1 -help for helping -loops,capabilities
+# values files- values user provide
+replace in ex: Pod file -{{.Values.name}} and values.yaml-> name: nginx
 
