@@ -1,6 +1,14 @@
 name: payment
 port: 8080
 replicas: 1
+
+resources:
+ requests:
+   memory: "128Mi"
+   cpu: "30m"
+ limits: 
+   memory: "256Mi"
+   cpu: "50m"
 # env:
 #   - name: CART_HOST 
 #     value: "cart" # within kubernetes

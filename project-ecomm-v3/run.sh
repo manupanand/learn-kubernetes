@@ -7,3 +7,7 @@ helm upgrade -i  catalogue ./ -f env-dev/catalogue.yaml
 
 
 helm upgrade -i  catalogue ./ -f env-dev/catalogue.yaml --dry-run # for testing code
+
+
+# check 
+helm ls # list all

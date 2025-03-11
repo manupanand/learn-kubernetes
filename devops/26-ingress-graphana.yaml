@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: 
+  name: grafana
+  namespace: kube-system
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec: 
+ ingressClassName: nginx 
+ rules: # add url here
+  - host: "grafana-dev.manupanand.online" # CNAME record
+    http:
+       paths: 
+         - path: /
+           pathType: Prefix
+           backend: 
+            service: 
+               name: prometheus-grafana
+               port: 
+                 number: 80
+ 
+ # kubectl apply -f name
+ # kubectl get ingress --watch -n kube-system

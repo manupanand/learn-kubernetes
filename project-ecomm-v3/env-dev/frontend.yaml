@@ -2,6 +2,14 @@ name: frontend
 port: 80
 serviceType: Loadbalancer
 replicas: 1
+
+resources:
+ requests:
+   memory: "32Mi"
+   cpu: "20m" #m millicore
+ limits: 
+   memory: "64Mi"
+   cpu: "50m"
 # env:
 #   - name: CATALOGUE_HOST 
 #     value: "catalogue" # within kubernetes

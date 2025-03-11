@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata: 
+  name: load-setup
+  labels: 
+    appName: load-setup
+spec: 
+  template:
+    spec: 
+      containers:
+        - name: load-setup
+          image: docker.io/roboshop/rs-load
+          env: 
+           - name: HOST
+             value: "http://frontend"
+           - name: NUM_CLIENTS
+             value: "10"    
+           - name: RUN_TIME
+             value: "5m"
+           - name: ERROR
+             value: "0" 
+           - name: SILENT
+             value: "0"
+    restartPolicy: Never
+  backoffLimit: 0
+# for this job to work nede to create a dummy user and password -user/pasword

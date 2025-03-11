@@ -22,3 +22,6 @@ spec:
           envFrom: 
            - secretRef: 
                name: {{ .Values.name }}
+          resources:
+           {{ toYaml .Values.resources | nindent 10 }}
+    # resource need to fetch here-toYaml helm chart -bring yaml as it

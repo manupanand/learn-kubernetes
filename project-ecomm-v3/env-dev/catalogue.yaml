@@ -9,6 +9,14 @@ schema:
   enabled: true
 
 replicas: 1
+
+resources:
+ requests:
+   memory: "128Mi"
+   cpu: "30m"
+ limits: 
+   memory: "256Mi"
+   cpu: "50m"
   # containers:
   #   master-data: master-data.js
   # env: 

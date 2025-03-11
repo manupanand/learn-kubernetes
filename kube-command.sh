@@ -186,9 +186,11 @@ eks kubernets metric server-monitoring
 
 ## monitoring
 kubectl top utility # utility-pod, or specidic pod
+kubectl top pod
+watch "kubectl top pod" #continous watch
 
 kubectl delete ns namepsace-name # all things associated with name space deleted
-
+ prometheus
 # cloud trail to monitor
 
 # security
