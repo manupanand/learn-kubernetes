@@ -1,0 +1,35 @@
+name: user
+port: 8080
+replicas: 2
+env: dev
+labels:
+    appName: user
+    logType: json
+    appType: nodejs
+
+resources:
+ requests:
+   memory: "128Mi"
+   cpu: "30m"
+ limits: 
+   memory: "256Mi"
+   cpu: "50m"
+# env:
+#   - name: MONGO_URL 
+#     value: "mongodb://mongo.dev.manupanand.online:27017/users" # within kubernetes
+#   - name: MONGO 
+#     value: "true"
+#   - name: REDIS_URL
+#     value: "redis://redis.dev.manupanand.online:6379"
+probes: 
+  initialDelaySeconds: 30
+
+
+# istio 
+istio: 
+  principals: ["cluster.local/ns/default/sa/payment","cluster.local/ns/default/sa/frontend
+  
+  
+  
+  
+  "]

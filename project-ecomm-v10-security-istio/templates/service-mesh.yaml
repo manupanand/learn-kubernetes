@@ -1,0 +1,45 @@
+{{- if.Values.istioAuthorization.enabled -}}
+--- 
+apiVersion: security.istio.io/v1beta1 
+kind: PeerAuthentication 
+metadata: 
+ name: {{ .Values.name }}
+spec: 
+  mtls: 
+   mode: STRICT 
+--- 
+apiVersion: security.istio.io/v1 
+kind: AuthorizationPolicy 
+metadata: 
+  name: {{ .Values.name }}-allow
+spec: 
+  selector: 
+    matchLabels: 
+      appName: {{ .Values.name }}
+  action: ALLOW 
+  rules: 
+   - from: 
+     - source :
+        principals: 
+           {{- range .Values.istio.principals }}
+           - {{ . | quote }}
+           {{ - end }}
+   - to: 
+     - operation: 
+         path: ["/"]
+--- 
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy 
+metadata: 
+  name: {{ .Values.name }}-deny 
+spec: 
+  selector: 
+     matchLabels:  
+       appName: {{ .Values.name }}
+  action: DENY 
+  rules: 
+    - from: 
+      - source: 
+          notPrincipals: {{ .Values.istio.principals }}
+
+{{- end -}}

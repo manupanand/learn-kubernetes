@@ -1,0 +1,27 @@
+{{- if .Values.schema.enabled -}} # if values.schema is true
+apiVersion: batch/v1
+kind: Job 
+metadata: 
+  name: {{.Values.name}}-schema 
+  namespace: roboshop 
+  labels: 
+    appName: {{ .Values.name }}
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-delete-policy: before-hook-creation
+spec: 
+  template: 
+      metadata: 
+        annotations:
+          sidecar.istio.io/inject: "false"
+    spec: 
+      containers: 
+          - name: {{.Values.name}}-schema 
+            image: docker.io/manupanand/schema:1.0
+            imagePullPolicy: Always
+            envFrom:
+              - secretRef: 
+                  name: {{ .Values.name }} 
+      restartPolicy: Never
+  backoffLimit: 0
+  {{- end -}}
