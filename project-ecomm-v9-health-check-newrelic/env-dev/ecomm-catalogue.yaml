@@ -1,0 +1,38 @@
+name: catalogue
+port: 8080
+labels:
+    appName: catalogue
+    logType: json
+    appType: nodejs
+env: dev
+# env:
+#   - name: MONGO_URL 
+#     value: "mongodb://mongo.dev.manupanand.online:27017/catalogue" # within kubernetes
+#   - name: MONGO 
+#     value: "true"
+schema: 
+  enabled: true
+
+replicas: 2
+
+resources:
+ requests:
+   memory: "128Mi"
+   cpu: "30m"
+ limits: 
+   memory: "256Mi"
+   cpu: "50m"
+  # containers:
+  #   master-data: master-data.js
+  # env: 
+  #   - name:  DB_TYPE
+  #     value: "mongo"
+  #   - name: APP_GIT_URL
+  #     value: "https://github.com/roboshop-devops-project-v3/catalogue"
+  #   - name: DB_HOST
+  #     value: "mongo.dev.manupanand.online"
+  #   - name: SCHEMA_FILES
+  #     value: "master-data"
+
+  probes: 
+  initialDelaySeconds: 30

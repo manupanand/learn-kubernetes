@@ -1,0 +1,7 @@
+serviceType: ClusterIP #input is common
+schema:
+  enabled: false
+
+# by default only for frontend it will be true
+ingress:
+  enabled: false

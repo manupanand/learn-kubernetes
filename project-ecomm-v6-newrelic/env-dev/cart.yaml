@@ -1,0 +1,23 @@
+name: cart
+port: 8080
+replicas: 1
+
+env: dev
+labels:
+    appName: cart
+    logType: json
+    appType: nodejs
+resources:
+ requests:
+   memory: "64Mi"
+   cpu: "30m"
+ limits: 
+   memory: "128Mi"
+   cpu: "50m"
+# env: 
+#   - name: CATALOGUE_HOST 
+#     value: "catalogue" # within kubernetes
+#   - name: CATALOGUE_PORT 
+#     value: "8080"
+#   - name: REDIS_HOST
+#     value: "redis.dev.manupanand.online"

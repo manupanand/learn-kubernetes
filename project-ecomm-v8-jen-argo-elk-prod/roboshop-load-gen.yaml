@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Job
+metadata: 
+  name: load-gen 
+spec: 
+  template: 
+    spec: 
+      containers: 
+        - name: load-gen
+          image: roboshop/rs-load
+          env: 
+           - name: HOST 
+             value: "https://frontend-dev.manupanand.online"
+           - name: NUM_CLIENTS
+             value: "10" 
+           - name: RUN_TIME 
+             value: "2m" 
+           - name: ERROR 
+             value: "0"
+      restartPolicy: Never 
+  backoffLimit: 4

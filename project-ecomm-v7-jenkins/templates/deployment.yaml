@@ -1,0 +1,28 @@
+apiVersion: v1 
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  labels: 
+    {{ toYaml .Values.labels | nindent 4 }}
+spec: 
+  replica: {{ .Values.replicas }}
+  selector: 
+    matchLabels: 
+      appName: {{ .Values.name }}
+  template: 
+    metadata: 
+      labels: 
+         {{ toYaml .Values.labels | nindent 8}}
+    spec: 
+      containers: 
+        - name: {{ .Values.name }}-{{ .Values.env }}
+          image: docker.io/manupanand/ecomm-{{.Values.name}}:{{ .Values.appVersion}} # image tag send via helm command --set
+          imagePullPolicy: Always
+          ports:
+           - containerPort: {{ .Values.port }}
+          envFrom: 
+           - secretRef: 
+               name: {{ .Values.name }}
+          resources:
+           {{ toYaml .Values.resources | nindent 10 }}
+    # resource need to fetch here-toYaml helm chart -bring yaml as it

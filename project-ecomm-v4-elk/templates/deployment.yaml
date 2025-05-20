@@ -1,0 +1,29 @@
+apiVersion: v1 
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  labels: 
+    appName: {{ .Values.name }}
+    logType: {{ .Values.logType}}
+spec: 
+  replica: {{ .Values.replicas }}
+  selector: 
+    matchLabels: 
+      appName: {{ .Values.name }}
+  template: 
+    metadata: 
+      labels: 
+        appName: {{ .Values.name}}
+        logType: {{ .Values.logType}}
+    spec: 
+      containers: 
+        - name: {{ .Values.name }}-{{ .Values.env }}
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/{{.Values.name}}
+          ports:
+           - containerPort: {{ .Values.port }}
+          envFrom: 
+           - secretRef: 
+               name: {{ .Values.name }}
+          resources:
+           {{ toYaml .Values.resources | nindent 10 }}
+    # resource need to fetch here-toYaml helm chart -bring yaml as it

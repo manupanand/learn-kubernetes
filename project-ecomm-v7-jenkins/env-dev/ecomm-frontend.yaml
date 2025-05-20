@@ -1,0 +1,40 @@
+name: frontend
+port: 80
+labels:
+    appName: frontend
+    logType: raw
+    appType: nginx
+# serviceType: Loadbalancer
+replicas: 1
+ingress:
+  enabled: true
+  host: frontend-dev.manupanand.online
+env: dev
+resources:
+ requests:
+   memory: "32Mi"
+   cpu: "20m" #m millicore
+ limits: 
+   memory: "64Mi"
+   cpu: "50m"
+# env:
+#   - name: CATALOGUE_HOST 
+#     value: "catalogue" # within kubernetes
+#   - name: CATALOGUE_PORT 
+#     value: "8080"
+#   - name: USER_HOST
+#     value: "user"
+#   - name: USER_PORT 
+#     value: "8080"
+#   - name: CART_HOST
+#     value: "cart"
+#   - name: CART_PORT
+#     value: "8080"
+#   - name:  SHIPPING_HOST 
+#     value: "shipping"
+#   - name: SHIPPING_PORT 
+#     value: "8080"
+#   - name:  PAYMENT_HOST
+#     value: "payment"
+#   - name: PAYMENT_PORT 
+#     value: "8080"
