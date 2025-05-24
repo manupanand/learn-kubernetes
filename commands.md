@@ -26,4 +26,7 @@ cntrl-k kill pod
 install eksctl
 eksctl create cluster
 
+to connect
+aws eks update-kubeconfig --name clustername
+
 ```
