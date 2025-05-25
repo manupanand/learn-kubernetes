@@ -24,7 +24,8 @@ cntrl-k kill pod
 # eksctl commands
 ```
 install eksctl
-eksctl create cluster
+eksctl create cluster -f file.yaml
+eksctl delete cluster -f file.yaml --region region --name name-cluster --force
 
 to connect
 aws eks update-kubeconfig --name clustername
