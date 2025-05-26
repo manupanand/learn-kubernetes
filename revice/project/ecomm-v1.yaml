@@ -1,7 +1,7 @@
 apiVersion: v1 
 kind: Service
 metadata: 
-  name: frontend
+  name: frontend-service
 spec: 
   type: LoadBalancer
   selector: 
@@ -14,10 +14,67 @@ spec:
 apiVersion: v1 
 kind: Service
 metadata: 
-  name: catalogue
-spec: 
+  name: catalogue-service
+spec:
+  type: ClusterIP  
   selector: 
     appName: catalogue
+  ports: 
+    - protocol: TCP 
+      port: 8080
+      targetPort: 8080
+---
+
+apiVersion: v1 
+kind: Service
+metadata: 
+  name: user-service
+spec:
+  type: ClusterIP  
+  selector: 
+    appName: user
+  ports: 
+    - protocol: TCP 
+      port: 8080
+      targetPort: 8080
+---
+
+apiVersion: v1 
+kind: Service
+metadata: 
+  name: cart-service
+spec:
+  type: ClusterIP  
+  selector: 
+    appName: cart
+  ports: 
+    - protocol: TCP 
+      port: 8080
+      targetPort: 8080
+---
+
+apiVersion: v1 
+kind: Service
+metadata: 
+  name: shipping-service
+spec:
+  type: ClusterIP  
+  selector: 
+    appName: shipping
+  ports: 
+    - protocol: TCP 
+      port: 8080
+      targetPort: 8080
+---
+
+apiVersion: v1 
+kind: Service
+metadata: 
+  name: payment-service
+spec:
+  type: ClusterIP  
+  selector: 
+    appName: payment
   ports: 
     - protocol: TCP 
       port: 8080
