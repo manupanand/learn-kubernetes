@@ -31,24 +31,24 @@ spec:
      containers: 
         - name: frontend 
           image: docker.io/nginx
-     env: # pass variables as env key-value
-       - name: CATALOGUE_HOST
-         value: ""
-       - name: CATALOGUE_PORT
-         value: ""
-       - name: USER_HOST
-         value: ""
-       - name: USER_PORT
-         value: ""
-       - name: CART_HOST
-         value: ""
-       - name: CART_PORT
-         value: ""
-       - name: SHIPPING_HOST
-         value: ""
-       - name: SHIPPING_PORT
-         value: ""
-       - name: PAYMENT_HOST
-         value: ""
-       - name: PAYMENT_PORT
-         value: ""
+          env: # pass variables as env key-value
+            - name: CATALOGUE_HOST
+              value: ""
+            - name: CATALOGUE_PORT
+              value: ""
+            - name: USER_HOST
+              value: ""
+            - name: USER_PORT
+              value: ""
+            - name: CART_HOST
+              value: ""
+            - name: CART_PORT
+              value: ""
+            - name: SHIPPING_HOST
+              value: ""
+            - name: SHIPPING_PORT
+              value: ""
+            - name: PAYMENT_HOST
+              value: ""
+            - name: PAYMENT_PORT
+              value: ""

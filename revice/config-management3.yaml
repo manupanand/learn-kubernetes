@@ -1,0 +1,39 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: sample
+spec: 
+  containers: 
+    - name: debug
+      image: docker.io/rkalluru/debug
+      env: 
+        - name: CATALOGUE_HOST
+          value: "test env"
+
+---
+# kubectl get pods
+# kubectl exec -it podname -- env  to see environment variables 
+
+# instead use config to manage have centralised way to use configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-07
+data:
+  CATALOGUE_HOST: "catalogue"
+  CART_HOST: "cart"
+
+--- 
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: sample-cm1
+spec: 
+  containers: 
+    - name: debug
+      image: docker.io/rkalluru/debug
+      envFrom: # get all env from config map intead one by one
+        - configMapRef:
+            name: cm-07 
+         
+# also can mount config map as file and use it

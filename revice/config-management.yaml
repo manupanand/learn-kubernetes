@@ -1,0 +1,15 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: sample
+spec: 
+  containers: 
+    - name: debug
+      image: docker.io/rkalluru/debug
+      env: 
+        - name: CATALOGUE_HOST
+          value: "test env"
+
+---
+# kubectl get pods
+# kubectl exec -it podname -- env  to see environment variables 

@@ -1,0 +1,28 @@
+
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: frontend 
+  labels: 
+    appName: frontend
+spec: 
+   replicas: 1
+   selector: 
+     matchLabels: 
+       appName: frontend
+   template: 
+     metadata: 
+        labels: 
+          appName: frontend 
+   spec: 
+     containers: 
+        - name: frontend 
+          image: docker.io/nginx
+          resources: 
+            memory: "64Mi" #Ki kilo bites , Megabites Mi
+            cpu: "250m" #1cpu =1000milicore also intead of 1cpu -0.5 half
+          limits: 
+            memory: "128Mi"
+            cpu: "500m" 
+
+# kubectl top pod podname # to monitor pod 
