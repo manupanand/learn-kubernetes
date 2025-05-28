@@ -1,0 +1,10 @@
+# writing exclusive network policy
+apiVersion: networking.k8s.io/v1 
+kind: NetworkPolicy 
+metadata:  
+  name: block-all-network # allowing only frontend to backend
+  namespace: default # going to apply over backend
+spec: # block all
+  policyTypes: 
+    - Ingress 
+    - Egress 

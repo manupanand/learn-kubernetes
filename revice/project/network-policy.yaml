@@ -1,0 +1,21 @@
+# to ensure security
+apiVersion: v1 
+kind: Namespace 
+metadata: 
+  name: roboshop
+  labels: 
+     pod-security.kubernetes.io/enforce: restricted # baseline #restricted
+     pod-security.kubernetes.io/audit: restricted # baseline #restricted
+     pod-security.kubernetes.io/warn: restricted # baseline #restricted
+
+---
+# writing exclusive network policy
+apiVersion: networking.k8s.io/v1 
+kind: NetworkPolicy 
+metadata:  
+  name: block-all-network # allowing only frontend to backend
+  namespace: roboshop # going to apply over backend
+spec: 
+  policyTypes: 
+    - Ingress 
+    - Egress 
