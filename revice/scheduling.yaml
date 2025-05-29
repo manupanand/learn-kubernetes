@@ -1,0 +1,95 @@
+# kubectl get nodes --show-labels # show  labesl 
+# kubectl label node name-of-node  labelName=something   # label a node
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: nginx 
+spec: 
+  containers: 
+    - name: nginx 
+      image: docker.io/nginx 
+  nodeName: # node name here make it schedule in specific node
+
+# afinity rules
+--- 
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: with-node-affinity 
+spec: 
+  affinity: 
+    nodeAffinity: 
+       requiredDuringSchedulingIgnoredDuringExecution: # it must schedule on that node
+         nodeSelectorTerms: 
+           - matchExpressions: 
+              - key: beta.kubernetes.io/arch # label-key
+                operator: In 
+                values:  
+                  - amd64 # value
+       preferredDuringSchedulingIgnoredDuringExecution: # if the pod doesnot got any node match still want to schedule
+         - weight: 1
+           preference: 
+             matchExpressions: 
+               - key: topology.kubernets.io/zone # node label
+                 operator: In 
+                 values:  
+                   - ap-south-2a
+  containers: 
+    - name: with-node-affinity 
+      image: registry.k8s.io/pause:2.0                  
+
+---
+# it will affinity to run on node which runs a pod with the label
+# make a pod with label security: S1 |video 21 aug 49 20min
+# pod affinity -two pods should assign one one node or both on different nodes /anti affinity
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: nginx 
+  labels: 
+    security: S1
+spec: 
+  containers: 
+    - name: nginx 
+      image: docker.io/nginx 
+  nodeName: # node name here make it schedule in specific node
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: with-pod-affinity
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: security
+            operator: In
+            values:
+            - S1
+        topologyKey: topology.kubernetes.io/zone
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: security
+              operator: In
+              values:
+              - S2
+          topologyKey: topology.kubernetes.io/zone ## we can use this to distribute to multiple avaialbility zone
+  containers:
+  - name: with-pod-affinity
+    image: registry.k8s.io/pause:3.8
+---
+# taints and toleration another way 
+# above all never told a node to not to schedule any pods - by default sheculde on any of node
+# if not to schdeule anything on the node at all or i want to schedule only that pod which i want to schdeule only on that node
+# have to do on nodeside
+# kubectl - mark the node as unschdeulable - cordon
+
+# kubectl cordon node-name
