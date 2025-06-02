@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongo-client
+spec:
+  containers:
+  - name: mongo-client
+    image: mongo:latest
+    command: ["sleep", "3600"]  # Keeps pod running
+
+---
+# kubectl exec -it mongo-client -- bash
+# # Inside the pod
+# mongo mongodb://<MONGO_HOST>:27017
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-client
+spec:
+  containers:
+  - name: mysql-client
+    image: mysql:latest
+    command: ["sleep", "3600"]
+    env:
+      - name: MYSQL_PWD
+        value: Roboshop@1  # Optional: avoids interactive password prompt
+
+# kubectl exec -it mysql-client -- bash
+# # Inside pod:
+# mysql -h <MYSQL_HOST> -u root -p
+# # or if MYSQL_PWD is set:
+# mysql -h <MYSQL_HOST> -u root
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-client
+spec:
+  containers:
+  - name: redis-client
+    image: redis:latest
+    command: ["sleep", "3600"]
+---
+# kubectl exec -it redis-client -- redis-cli -h <REDIS_HOST>
