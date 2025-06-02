@@ -23,11 +23,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user
+      appName: user
   template:
     metadata:
       labels:
-        app: user
+        appName: user
     spec:
       containers:
       - name: user

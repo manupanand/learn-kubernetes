@@ -23,11 +23,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cart
+      appName: cart
   template:
     metadata:
       labels:
-        app: cart
+        appName: cart
     spec:
       containers:
       - name: catalogue

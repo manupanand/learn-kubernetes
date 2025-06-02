@@ -23,11 +23,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: payment
+     appName: payment
   template:
     metadata:
       labels:
-        app: payment
+       appName: payment
     spec:
       containers:
       - name: payment

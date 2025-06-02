@@ -23,11 +23,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: shipping
+      appName: shipping
   template:
     metadata:
       labels:
-        app: shipping
+        appName: shipping
     spec:
       containers:
       - name: shipping
