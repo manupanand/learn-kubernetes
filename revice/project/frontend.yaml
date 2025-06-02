@@ -31,7 +31,7 @@ spec:
      spec: 
           containers: 
               - name: frontend 
-                image: docker.io/manupanand/ecomm-forntend:latest
+                image: docker.io/manupanand/ecomm-frontend:latest
                 env: # pass variables as env key-value
                   - name: CATALOGUE_HOST
                     value: "catalogue-service"  # host is - within kubernetes the value will search for service name 
