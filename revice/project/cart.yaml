@@ -12,37 +12,37 @@ spec:
       port: 8080
       targetPort: 8080
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: cart 
-  namespace: roboshop 
-  labels: 
-    appName: cart
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: cart
-  template:
-    metadata:
-      labels:
-        app: cart
-    spec:
-      containers:
-      - name: catalogue
-        image: docker.io/manupanand/ecomm-cart:latest
-        env: 
-          - name: CATALOGUE_HOST 
-            value: "catalogue-service" 
-          - name: CATALOGUE_PORT 
-            value: "8080"
-          - name: REDIS_HOST
-            value: "redis://redis.subnet_name_a.db.manupanand.online:6379"
-        # resources:
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "500m"
-        # ports:
-        # - containerPort: <Port>
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: cart 
+#   namespace: roboshop 
+#   labels: 
+#     appName: cart
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: cart
+#   template:
+#     metadata:
+#       labels:
+#         app: cart
+#     spec:
+#       containers:
+#       - name: catalogue
+#         image: docker.io/manupanand/ecomm-cart:latest
+#         env: 
+#           - name: CATALOGUE_HOST 
+#             value: "catalogue-service" 
+#           - name: CATALOGUE_PORT 
+#             value: "8080"
+#           - name: REDIS_HOST
+#             value: "redis://redis.subnet_name_a.db.manupanand.online:6379"
+#         # resources:
+#         #   limits:
+#         #     memory: "128Mi"
+#         #     cpu: "500m"
+#         # ports:
+#         # - containerPort: <Port>
 
