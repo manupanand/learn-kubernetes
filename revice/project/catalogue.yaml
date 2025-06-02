@@ -12,58 +12,58 @@ spec:
       port: 8080
       targetPort: 8080
 ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: catalogue 
-#   namespace: roboshop 
-#   labels: 
-#     appName: catalogue
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: catalogue
-#   template:
-#     metadata:
-#       labels:
-#         app: catalogue
-#     spec:
-#       containers:
-#       - name: catalogue
-#         image: docker.io/manupanand/ecomm-catalogue:latest
-#         env: 
-#           - name: MONGO 
-#             value: "true" 
-#           - name: MONGO_URL 
-#             value: "mongodb://mongo.subnet_name_a.db.manupanand.online:27017/catalogue"
-#         #     cpu: "500m"
-#         # ports:
-#         # - containerPort: <Port>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue 
+  namespace: roboshop 
+  labels: 
+    appName: catalogue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalogue
+  template:
+    metadata:
+      labels:
+        app: catalogue
+    spec:
+      containers:
+      - name: catalogue
+        image: docker.io/manupanand/ecomm-catalogue:latest
+        env: 
+          - name: MONGO 
+            value: "true" 
+          - name: MONGO_URL 
+            value: "mongodb://mongo.subnet_name_a.db.manupanand.online:27017/catalogue"
+        #     cpu: "500m"
+        # ports:
+        # - containerPort: <Port>
 
-# # job continer will terminate after completion of job
-# ---
-# apiVersion: batch/v1
-# kind: Job 
-# metadata: 
-#   name: catalogue-schema
-#   namespace: roboshop 
-#   labels: 
-#     appName: catalogue
-# spec:  
-#   template: 
-#     spec:  
-#       containers:  
-#         - name: catalogue 
-#           image: docker.io/manupanand/schema:latest 
-#           env: 
-#             - name: DB_TYPE
-#               value: "mongo"
-#             - name: APP_GIT_URL 
-#               value: "https://github.com/manupanand-freelance-developer/schema-load"
-#             - name: DB_HOST 
-#               value: "mongodb://mongo.subnet_name_a.db.manupanand.online:27017/catalogue"
-#             - name: SCHEMA_FILES # s
-#               value: db/master-data.js
-#       restartPolicy: Never 
-#   backoffLimit: 0
+# job continer will terminate after completion of job
+---
+apiVersion: batch/v1
+kind: Job 
+metadata: 
+  name: catalogue-schema
+  namespace: roboshop 
+  labels: 
+    appName: catalogue
+spec:  
+  template: 
+    spec:  
+      containers:  
+        - name: catalogue 
+          image: docker.io/manupanand/schema:latest 
+          env: 
+            - name: DB_TYPE
+              value: "mongo"
+            - name: APP_GIT_URL 
+              value: "https://github.com/manupanand-freelance-developer/schema-load"
+            - name: DB_HOST 
+              value: "mongodb://mongo.subnet_name_a.db.manupanand.online:27017/catalogue"
+            - name: SCHEMA_FILES # s
+              value: db/master-data.js
+      restartPolicy: Never 
+  backoffLimit: 0
