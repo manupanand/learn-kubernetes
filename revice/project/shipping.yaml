@@ -11,3 +11,96 @@ spec:
     - protocol: TCP 
       port: 8080
       targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+  namespace: roboshop 
+  labels: 
+    appName: shipping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shipping
+  template:
+    metadata:
+      labels:
+        app: shipping
+    spec:
+      containers:
+      - name: shipping
+        image: docker.io/manupanand/ecomm-shipping:latest
+        env: 
+          - name: CART_ENDPOINT
+            value: "cart-service:8080" 
+          - name: DB_HOST 
+            value: "mysql.subnet_name_a.db.manupanand.online" 
+---
+# job continer will terminate after completion of job
+
+apiVersion: batch/v1
+kind: Job 
+metadata: 
+  name: shipping-schema
+  namespace: roboshop 
+  labels: 
+    appName: shipping
+spec:  
+  backoffLimit: 0
+  template: 
+    spec:  
+      restartPolicy: Never 
+      containers:  # make containers for each load
+        - name: app-user
+          image: docker.io/manupanand/schema:latest 
+          env: 
+            - name: DB_TYPE
+              value: "mysql"
+            - name: APP_GIT_URL 
+              value: "https://github.com/manupanand-freelance-developer/schema-load"
+            - name: DB_HOST 
+              value: "mysql.subnet_name_a.db.manupanand.online" 
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASS 
+              value: Roboshop@1
+            - name: SCHEMA_FILES # s
+              value: db/app-user.sql 
+        - name: schema
+          image: docker.io/manupanand/schema:latest 
+          env: 
+            - name: DB_TYPE
+              value: "mysql"
+            - name: APP_GIT_URL 
+              value: "https://github.com/manupanand-freelance-developer/schema-load"
+            - name: DB_HOST 
+              value: "mysql.subnet_name_a.db.manupanand.online" 
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASS 
+              value: Roboshop@1
+            - name: SCHEMA_FILES # s
+              value: db/schema.sql
+        - name: master-data
+          image: docker.io/manupanand/schema:latest 
+          env: 
+            - name: DB_TYPE
+              value: "mysql"
+            - name: APP_GIT_URL 
+              value: "https://github.com/manupanand-freelance-developer/schema-load"
+            - name: DB_HOST 
+              value: "mysql.subnet_name_a.db.manupanand.online" 
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASS 
+              value: Roboshop@1
+            - name: SCHEMA_FILES # s
+              value: db/master-data.sql
+
+
+
+
+
+   

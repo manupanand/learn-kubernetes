@@ -9,3 +9,31 @@ spec:
     requests: 
       storage: 10Gi
   storageClassName: gp2 # kubectl get sc
+
+# pod to consume pvc 
+---
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: my-pvc-pod 
+spec: 
+  containers: 
+    - name: nginx 
+      image: nginx 
+      volumeMounts:  
+        - mountPath: /usr/share/nginx/html 
+          name: my-pvc-storage 
+  volumes: 
+     - name: my-pvc-storage 
+       persistentVolumeClaim: 
+         claimName: ebs-pvc 
+# vide-22aug-50|install add on ebs csi driver addon- need iam role- eks-cluster -IRSA -like iam role for Service account
+# creating accrss to EBS -iam role provide acess to EBS - on eks side to whowm we should provide access
+# eks- will give access to all nodes in eks to EBS,if to nodes -all pods in node can acess
+# but if to pods -pods is not an identifyable entity in eks /aws - so the come with intermediatory -IRSA- to give acess to SA
+# copy cluster -eks -overview -OpenID copy 
+# IAM- identity-provider- name is OpenID- paste URL, audience- sts.amazonaws.com 
+# iam role-select webidentity-select identy created, audience>administrator acess
+# need to attach which service accounts
+# trust-policy-add>"oidc.eks.region.amazonaws.com/id/3424242342323443:sub":"system:serviceaccount:kube-system:ebs-csi-controller-sa"
+# find sa -kubectl get sa -a > ebs cis sa

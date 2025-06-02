@@ -6,7 +6,7 @@ spec:
   containers: 
     - name: nginx 
       image: docker.io/nginx 
-  nodeName: # node name of that which is unschdeuled or not able to schedule
+  nodeName: node-name # node name of that which is unschdeuled or not able to schedule
   # it will fail to schdeule if node name exclusively given, if node name not given it will
   # not schdeule on taint node # node name previals over- but node name is ephemeral 
   # taint is bad substance on something - but some thing can tolerate it

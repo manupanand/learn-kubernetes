@@ -24,7 +24,9 @@ kubectl exec -it podname --bash # curl other pod ip to test
  kubectl top pod podname -n namespace # 
  kubectk get hpa --watch # to watch hpa utilizations
  to look iniide pod
- kubectl describe pod podname
+ kubectl describe pod podname 
+  kubectl get cm -o yaml # to see configmap
+  kubectl get cm -n kube-system  aws-auth -o yaml # aws-auth mapRoles to edit and get access
 
 ```
 ### vertical scaling k8s

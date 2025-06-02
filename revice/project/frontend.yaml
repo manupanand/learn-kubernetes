@@ -31,25 +31,25 @@ spec:
    spec: 
      containers: 
         - name: frontend 
-          image: docker.io/nginx
+          image: docker.io/manupanand/ecomm-forntend:latest
           env: # pass variables as env key-value
             - name: CATALOGUE_HOST
-              value: ""
+              value: "catalogue-service"  # host is - within kubernetes the value will search for service name 
             - name: CATALOGUE_PORT
-              value: ""
+              value: "8080"
             - name: USER_HOST
-              value: ""
+              value: "user-service"
             - name: USER_PORT
-              value: ""
+              value: "8080"
             - name: CART_HOST
-              value: ""
+              value: "cart-service"
             - name: CART_PORT
-              value: ""
+              value: "8080"
             - name: SHIPPING_HOST
-              value: ""
+              value: "shipping-service"
             - name: SHIPPING_PORT
-              value: ""
+              value: "8080"
             - name: PAYMENT_HOST
-              value: ""
+              value: "payment-service"
             - name: PAYMENT_PORT
-              value: ""
+              value: "8080"
