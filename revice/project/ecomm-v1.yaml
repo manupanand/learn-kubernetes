@@ -103,7 +103,7 @@ metadata:
 spec:
   containers:
     - name: frontend
-      image: public.ecr.aws/w8x4g9h7/roboshop-v3/frontend
+      image: docker.io/manupanand/ecomm-frontend:latest
       env:
         - name: CATALOGUE_HOST
           value: "catalogue-service"
