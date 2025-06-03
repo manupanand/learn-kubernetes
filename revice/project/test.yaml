@@ -28,6 +28,6 @@ metadata:
 spec: 
   containers:
   - name: test
-    image: docker.io/manupanand/latest
+    image: docker.io/manupanand/test:latest
     ports:
     - containerPort: 80
