@@ -1,0 +1,41 @@
+apiVersion: v1 
+kind: Service
+metadata: 
+  name: user-service
+  namespace: roboshop
+spec:
+  type: ClusterIP  
+  selector: 
+    appName: user
+  ports: 
+    - protocol: TCP 
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user 
+  namespace: roboshop 
+  labels: 
+    appName: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      appName: user
+  template:
+    metadata:
+      labels:
+        appName: user
+    spec:
+      containers:
+      - name: user
+        image: docker.io/manupanand/ecomm-user:latest
+        env: 
+          - name: MONGO 
+            value: "true" 
+          - name: MONGO_URL 
+            value: "mongodb://mongo.subnet_name_a.db.manupanand.online:27017/users"
+          - name: REDIS_URL
+            value: "redis://redis.subnet_name_a.db.manupanand.online:6379"
