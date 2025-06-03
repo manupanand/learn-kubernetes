@@ -42,7 +42,7 @@ spec:
           - name: USER_PORT 
             value: "8080"
           - name: AMQP_HOST
-            value: "rabbitmq.subnet_name_a.db.manupanand.online"
+            value: "rabbitmq.subnet_name_c.db.manupanand.online"
           - name: AMQP_USER 
             value: roboshop 
           - name: AMQP_PASS 

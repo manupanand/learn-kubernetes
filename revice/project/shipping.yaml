@@ -36,7 +36,7 @@ spec:
           - name: CART_ENDPOINT
             value: "cart-service:8080" 
           - name: DB_HOST 
-            value: "mysql.subnet_name_a.db.manupanand.online" 
+            value: "mysql.subnet_name_c.db.manupanand.online" 
 ---
 # job continer will terminate after completion of job
 
@@ -61,7 +61,7 @@ spec:
             - name: APP_GIT_URL 
               value: "https://github.com/manupanand-freelance-developer/schema-load"
             - name: DB_HOST 
-              value: "mysql.subnet_name_a.db.manupanand.online" 
+              value: "mysql.subnet_name_c.db.manupanand.online" 
             - name: DB_USER
               value: "root"
             - name: DB_PASS 
@@ -76,7 +76,7 @@ spec:
             - name: APP_GIT_URL 
               value: "https://github.com/manupanand-freelance-developer/schema-load"
             - name: DB_HOST 
-              value: "mysql.subnet_name_a.db.manupanand.online" 
+              value: "mysql.subnet_name_c.db.manupanand.online" 
             - name: DB_USER
               value: "root"
             - name: DB_PASS 
@@ -91,7 +91,7 @@ spec:
             - name: APP_GIT_URL 
               value: "https://github.com/manupanand-freelance-developer/schema-load"
             - name: DB_HOST 
-              value: "mysql.subnet_name_a.db.manupanand.online" 
+              value: "mysql.subnet_name_c.db.manupanand.online" 
             - name: DB_USER
               value: "root"
             - name: DB_PASS 
