@@ -16,7 +16,7 @@ spec:
   ports: 
     - protocol: TCP 
       port: 80 
-      targetPort: 3000
+      targetPort: 80
 ---
 apiVersion: v1 
 kind: Pod 
@@ -28,6 +28,6 @@ metadata:
 spec: 
   containers:
   - name: test
-    image: docker.io/manupanand/test:latest
+    image: docker.io/nginx
     ports:
-    - containerPort: 3000
+    - containerPort: 80
