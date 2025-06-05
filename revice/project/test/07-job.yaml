@@ -18,7 +18,7 @@ spec:
             - name: APP_GIT_URL 
               value: "https://github.com/manupanand-freelance-developer/schema-load"
             - name: DB_HOST 
-              value: "mongodb://mongo.subnet_name_c.db.manupanand.online:27017/catalogue"
+              value: "mongodb://mongo.subnet_name_c.manupanand.online:27017/catalogue"
             - name: SCHEMA_FILES # s
               value: db/master-data.js
       restartPolicy: Never 
@@ -63,7 +63,7 @@ spec:
             - name: APP_GIT_URL 
               value: "https://github.com/manupanand-freelance-developer/schema-load"
             - name: DB_HOST 
-              value: "mysql.subnet_name_c.db.manupanand.online" 
+              value: "mysql.subnet_name_c.manupanand.online" 
             - name: DB_USER
               value: "shipping"
             - name: DB_PASS 
@@ -78,7 +78,7 @@ spec:
             - name: APP_GIT_URL 
               value: "https://github.com/manupanand-freelance-developer/schema-load"
             - name: DB_HOST 
-              value: "mysql.subnet_name_c.db.manupanand.online" 
+              value: "mysql.subnet_name_c.manupanand.online" 
             - name: DB_USER
               value: "shipping"
             - name: DB_PASS 

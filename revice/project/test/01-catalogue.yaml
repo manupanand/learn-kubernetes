@@ -36,7 +36,7 @@ spec:
           - name: MONGO 
             value: "true" 
           - name: MONGO_URL 
-            value: "mongodb://mongo.subnet_name_c.db.manupanand.online:27017/catalogue"
+            value: "mongodb://mongo.subnet_name_c.manupanand.online:27017/catalogue"
         #     cpu: "500m"
         # ports:
         # - containerPort: <Port>

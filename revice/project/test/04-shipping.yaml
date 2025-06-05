@@ -36,7 +36,7 @@ spec:
           - name: CART_ENDPOINT
             value: "cart-service:8080" 
           - name: DB_HOST 
-            value: "mysql.subnet_name_c.db.manupanand.online" 
+            value: "mysql.subnet_name_c.manupanand.online" 
 # ---
 # # job continer will terminate after completion of job
 

@@ -38,7 +38,7 @@ spec:
           - name: CATALOGUE_PORT 
             value: "8080"
           - name: REDIS_HOST
-            value: "redis://redis.subnet_name_c.db.manupanand.online:6379"
+            value: "redis://redis.subnet_name_c.manupanand.online:6379"
         # resources:
         #   limits:
         #     memory: "128Mi"
