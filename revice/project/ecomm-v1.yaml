@@ -93,37 +93,46 @@ spec:
       targetPort: 8080
 --- 
 
-apiVersion: v1
-kind: Pod
-metadata:
-  name: frontend
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: frontend 
   namespace: roboshop
-  labels:
+  labels: 
     appName: frontend
-spec:
-  containers:
-    - name: frontend
-      image: docker.io/manupanand/ecomm-frontend:latest
-      ports: 
-        - containerPort: 8080 
-      env:
-        - name: CATALOGUE_HOST
-          value: "catalogue-service"
-        - name: CATALOGUE_PORT
-          value: "8080"
-        - name: USER_HOST
-          value: "user-service"
-        - name: USER_PORT
-          value: "8080"
-        - name: CART_HOST
-          value: "cart-service"
-        - name: CART_PORT
-          value: "8080"
-        - name: SHIPPING_HOST
-          value: "shipping-service"
-        - name: SHIPPING_PORT
-          value: "8080"
-        - name: PAYMENT_HOST
-          value: "payment-service"
-        - name: PAYMENT_PORT
-          value: "8080"
+spec: 
+   replicas: 1
+   selector: 
+     matchLabels: 
+       appName: frontend
+   template: 
+     metadata: 
+        labels: 
+          appName: frontend 
+     spec: 
+          containers: 
+              - name: frontend 
+                image: docker.io/manupanand/ecomm-frontend:latest
+                ports: 
+                  - containerPort: 8080
+                env: # pass variables as env key-value
+                  - name: CATALOGUE_HOST
+                    value: "catalogue-service"  # host is - within kubernetes the value will search for service name 
+                  - name: CATALOGUE_PORT
+                    value: "8080"
+                  - name: USER_HOST
+                    value: "user-service"
+                  - name: USER_PORT
+                    value: "8080"
+                  - name: CART_HOST
+                    value: "cart-service"
+                  - name: CART_PORT
+                    value: "8080"
+                  - name: SHIPPING_HOST
+                    value: "shipping-service"
+                  - name: SHIPPING_PORT
+                    value: "8080"
+                  - name: PAYMENT_HOST
+                    value: "payment-service"
+                  - name: PAYMENT_PORT
+                    value: "8080"
