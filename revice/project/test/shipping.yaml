@@ -78,7 +78,7 @@ spec:
             - name: DB_HOST 
               value: "mysql.subnet_name_c.db.manupanand.online" 
             - name: DB_USER
-              value: "sshipping"
+              value: "shipping"
             - name: DB_PASS 
               value: Roboshop@1
             - name: SCHEMA_FILES # s
