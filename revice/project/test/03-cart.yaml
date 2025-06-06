@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: docker.io/manupanand/ecomm-cart:latest
+        image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
         env: 
           - name: CATALOGUE_HOST 
             value: "catalogue-service" 
