@@ -11,16 +11,16 @@ spec:
     spec:  
       containers:  
         - name: catalogue 
-          image: docker.io/manupanand/schema:latest 
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
           env: 
             - name: DB_TYPE
               value: "mongo"
             - name: APP_GIT_URL 
-              value: "https://github.com/manupanand-freelance-developer/schema-load"
+              value: "https://github.com/roboshop-devops-project-v3/catalogue"
             - name: DB_HOST 
               value: "mongo.subnet_name_c.manupanand.online"
-            - name: REPO_DIR
-              value: "schema-load"
+            - name: SCHEMA_FILES
+              value: "db/master-data.js"
       restartPolicy: Never 
   backoffLimit: 0
 ---
@@ -56,12 +56,12 @@ spec:
         #     - name: SCHEMA_FILES # s
         #       value: db/app-user.sql 
         - name: schema
-          image: docker.io/manupanand/schema:latest 
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load 
           env: 
             - name: DB_TYPE
               value: "mysql"
             - name: APP_GIT_URL 
-              value: "https://github.com/manupanand-freelance-developer/schema-load"
+              value: "https://github.com/roboshop-devops-project-v3/shipping"
             - name: REPO_DIR
               value: "schema-load"
             - name: DB_HOST
