@@ -1,0 +1,108 @@
+# service -lb - expose application directly outside
+#reverse proxy -> accept all traffic -http/https .-> forward to applications based on rules and policies
+#ingress-defines how a service is access outsed the cluster, make granular decesion
+#then modify, or expose->with trusted ssl
+
+# ingress controller: main reverse proxy route traffic to ingress routes
+#values.yaml
+
+ports: 
+  web: # http 
+   redirectTo: websecure # forward http to https
+  websecure: #https
+   tls: 
+     enabled: true 
+     certResolver: awscertificate-manger
+
+logs: 
+  general: 
+    level: ERROR # can use DEBUG for debuging
+
+# traefik has dash board -> disable
+ingressRoute: 
+ dashboard: 
+   enabled: false
+
+# persistence for certificcat need on restart - need to persist and configure path wher you store sslcerticate
+persistance: 
+  enabled: true
+  name: ssl-certs
+  size: 1Gi
+  path: /ssl-cert
+
+# set traefik as default ingress controller |in k8s 1.19 after no need of annotation for ingress
+# use/create IngressClass
+ingressClass: 
+ enabled: true 
+ isDefaultClass: true
+
+# install traefik
+#kubectl create ns traefik
+#helm install  traefik traefik/traefik --values=values-file.yaml
+#kubectl get events
+#deployed trefik ingress controller
+
+#expose app
+---
+#nginx-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx 
+  namespace: nginx 
+  labels: 
+    app: nginx 
+spec:
+  selector:
+    matchLabels:
+      app: nginx 
+  template:
+    metadata:
+      labels:
+        app: nginx 
+    spec:
+      containers:
+      - name: nginx 
+        image: docker.io/nginx 
+        ports:
+        - containerPort: 80
+# we need to add service clusterIP to this deployment so that ingress can route to service of
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx 
+  namespace: nginx 
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+---
+# ingress object to define the rote to traffic-> cluteripservice
+apiVersion: networking.k8s.io/v1 
+kind: Ingress 
+metadata: 
+  name:  nginx-ingress 
+  namespace: nginx 
+#annotations
+spec: 
+  rules: 
+   - host: "hostname.com"
+     http: 
+       paths: 
+         - path: / 
+           pathType: Prefix 
+           backend:  
+             service: 
+               name: nginx 
+               port: 
+                number: 80 #service number
+
+#kubectl get ingress
+
+
+
+

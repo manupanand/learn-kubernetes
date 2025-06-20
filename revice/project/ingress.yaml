@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana # for grafana
+  namespace: kube-system
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx #nginx class
+  rules: # multi route load balancer - host dns
+   - host: "grafana.manupanand.online"  #add dns cname record->loadbalancer name
+     http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-grafana #service name for grafana kubectl get svc -n kube-system
+            port:
+              number: 80  # 

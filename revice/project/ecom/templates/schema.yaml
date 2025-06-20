@@ -1,0 +1,30 @@
+# use condition because only need for cataloguge and shipping
+{{- if .Values.schema.enabled -}} # if values enabed-schema is true then dp # main file enabe it false always-values.yaml
+apiVersion: batch/v1
+kind: Job 
+metadata: 
+  name: {{ .Values.name }}-schema
+  namespace: roboshop 
+  labels: 
+    appName: {{ .Values.name }}-schema
+  annotations: 
+    helm.sh/hook: pre-install #helm hook
+    helm.sh/hook-delete-policy: before-hook-creation #helm hook
+spec:  
+  backoffLimit: 0
+  template: 
+    spec: 
+      restartPolicy: Never  
+      containers: # loop/rnage over each contianers
+        {{- range .Values.schema.containers }}
+          - name: {{ $.Values.name }}-{{ . }}
+            image: docker.io/manupanand/{{ . }}:latest # {{ . }} name per container
+            imagePullPolicy: Always
+            envFrom: 
+              - secretRef: 
+                   name: {{ $.Values.name }} # to acces the values in loop use $
+        {{- end }}
+{{- end -}}
+# suppose if we have three seperate containers for one-application -shipping need seperate container
+#either edit run script to do it one in one container or 
+# use loop/range-for each in helm chart

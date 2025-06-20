@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1 
+kind: Ingress 
+metadata: 
+  namespace: test 
+  name: http-echo 
+spec: 
+  rule: 
+    - host: test.manupanand.online 
+      http: 
+        paths: 
+          - path: / 
+            backend: 
+              serviceName: http-echo-1 
+              servicePort: http

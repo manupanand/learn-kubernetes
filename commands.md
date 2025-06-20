@@ -26,9 +26,38 @@ kubectl exec -it podname --bash # curl other pod ip to test
  to look iniide pod
  kubectl describe pod podname 
   kubectl get cm -o yaml # to see configmap
-  kubectl get cm -n kube-system  aws-auth -o yaml # aws-auth mapRoles to edit and get access
+  kubectl get cm -n kube-system  aws-auth -o yaml # aws-auth mapRoles to edit and get access 
+
+  # secretstore
+  kubectl get secretstore
+  kubectl describe secretstore  name(vault-backend)
+  kubectl delete -f secert.yaml 
+  helm ls
+  helm unistall external-secrets
+  kubectl get secret secretname -n namespace
+  kubectl get secret secret-name -n namespace -o yaml 
+  kubectl describe externalsecret name -n namespace
+  kubectl describe pod -n roboshop -l job-name=load-test #job
+ 
+
+  # metric server
+  kubectl top pods
+  kubectl top nodes
+  watch "kubectl top pods" # watch is linux commad
+```
+## helm
+```
+helm ls # list
+helm upgrade -i name . 
 
 ```
+## k9s
+```
+secret decode -x
+log -l
+edit -e
+```
+
 ### vertical scaling k8s
 ```
 git clone https://github.com/kubernetes/autoscaler.git

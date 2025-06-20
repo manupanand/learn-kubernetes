@@ -1,0 +1,25 @@
+name: ecomm-frontend 
+sport: 80
+port: 8080
+serviceType: LoadBalancer
+env: # pass variables as env key-value
+  - name: CATALOGUE_HOST
+    value: "ecomm-catalogue"  # host is - within kubernetes the value will search for service name 
+  - name: CATALOGUE_PORT
+    value: "8080"
+  - name: USER_HOST
+    value: "ecomm-user"
+  - name: USER_PORT
+    value: "8080"
+  - name: CART_HOST
+    value: "ecomm-cart"
+  - name: CART_PORT
+    value: "8080"
+  - name: SHIPPING_HOST
+    value: "ecomm-shipping"
+  - name: SHIPPING_PORT
+    value: "8080"
+  - name: PAYMENT_HOST
+    value: "ecomm-payment"
+  - name: PAYMENT_PORT
+    value: "8080"

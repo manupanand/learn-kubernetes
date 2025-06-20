@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: {{ .Values.name }}
+  namespace: roboshop 
+  labels: 
+    appName: {{ .Values.name }}
+spec: 
+  containers:  
+    - name: {{ .Values.name }}
+      image: docker.io/manupanand/{{ .Values.name }}:latest 
+      envFrom:
+        - secretRef:  
+            name: {{ .Values.name }}
+ 

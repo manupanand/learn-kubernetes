@@ -1,0 +1,18 @@
+name: ecomm-payment 
+sport: 8080
+port: 8080
+env: 
+  - name: CART_HOST 
+    value: "ecomm-cart" 
+  - name: CART_PORT 
+    value: "8080"
+  - name: USER_HOST 
+    value: "ecomm-user"
+  - name: USER_PORT 
+    value: "8080"
+  - name: AMQP_HOST
+    value: "rabbitmq.subnet_name_c.manupanand.online"
+  - name: AMQP_USER 
+    value: "roboshop" 
+  - name: AMQP_PASS 
+    value: "roboshop123"
