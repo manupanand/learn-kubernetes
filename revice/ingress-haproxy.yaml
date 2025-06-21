@@ -1,3 +1,5 @@
+#ingress controller
+---
 apiVersion: networking.k8s.io/v1 
 kind: Ingress 
 metadata: 
@@ -12,3 +14,71 @@ spec:
             backend: 
               serviceName: http-echo-1 
               servicePort: http
+# user-> route http/https from outside cluster to cluster service
+# to customise this need annotaions:
+Annotations: 
+ - key/value  maps of strings 
+ - used to attach metadata  to kubernets objects
+ - available in configmap, ingress and service objects.
+
+#what are config map 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: haproxy-configmap
+  namespace: haproxy controller
+data:
+  maxconn: "1000"
+  hard-stop-after: "1m"
+
+# raw config inputs: 
+config snippets: 
+ - global-config-snippet: configmap annotation
+ - frontend-config-snippet: cconfigmap annotation 
+ - backend-config-snippet: Service annotation 
+auxilary config: 
+ - a secondary haproxy config file 
+ - config map mounted as volume 
+
+# what is opaque?
+
+keyPoints: 
+ using HAproxy  configuration directly (no intermediate format)
+ no vaidation
+ opaque to ingress controller 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: haproxy-configmap
+  namespace: haproxy controller
+data:
+  maxconn: "1000"
+  hard-stop-after: "1m"
+  global-config-snippet: | 
+    stats socket 0.0.0.0:31204 
+    ssl-default-bind-options no-sslv3 no-tls-tickets no-tlsv10
+    ssl_default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
+
+# what are custom resource defenitions
+#what is registering
+---
+apiVersion: apiextensions.k8s.io/v1 
+kind: CustomResourceDefinition
+metadata: 
+ name:  globals.core.haproxy.org 
+spec: 
+  group: core.haproxy.org
+  names: 
+   kind: Global 
+   plural: globals 
+  scope: Namespaced 
+  versions: 
+    - name: v1alpha1 
+      served: true 
+      storage: true 
+      schema: 
+        openAPIv3schema: 
+         type: object 
+## ---what is above code use?

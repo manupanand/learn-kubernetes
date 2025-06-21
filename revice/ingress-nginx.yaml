@@ -1,0 +1,77 @@
+#haproxy loadbalncer-outside(haproxy frontend+haproxy backend->)+nginx controller(k8s)
+# installing haproxy on instance
+sudo dnf install haproxy # check haproxy version or cat /etc/haproxy/haproxy.cfg
+# configure haproxy frontend and backend
+sudo vi /etc/haproxy/haproxy.cfg 
+frontend Local_Server
+   bind *:80
+   mode http 
+   default_backend k8s_server
+
+backend k8s_server 
+   mode http 
+   balance roundrobin #algorithm
+   server web.example.com 100.0.0.2:8080 #kubeclusterip
+
+# check correcctness of configuration
+haproxy -c -f /etc/haproxy/haproxy.cfg 
+
+# in kubernets setup ingress controller
+git clone https://github.com/nginxinc/kubernetes-ingress.git
+cd  kubernetes-ingress/deployment
+# create namespace and service account
+common/ns-and-sa.yaml
+kubectl apply -f common/ns-and-sa.yaml
+# create cluster role and cluster role binding
+rbac.yaml
+kubectl apply -f rbac/rbac.yaml 
+# create secret using TLS certificate
+default-server-secret.yaml 
+common/default-server-secret.yaml 
+kubectl apply -f common/default-server-secret.yaml 
+
+#nginx-config.yaml config map creation
+kubectl apply -f common/nginx-config.yaml
+
+#ingress controller pod deployment
+kubectl apply -f deployment/nginx-ingress.yaml
+
+# run it as daemo set 
+kubectl apply -f daemon-set/nginx-ingress.yaml
+daemonset.apps/nginx-ingress
+
+#check
+kubectl get -n nginx-ingress
+
+# above is setup nginx controller not ingress
+# set ingress resource - but need the service to be expose up and running
+
+kubectl apply -f deployment.yaml  #name and label for selector must 
+kubectl apply -f service.yaml # for deployment
+
+or 
+kubectl expose deployment demo(name) --type=ClusterIP --name=demo-service  --port=8080
+
+#ingress resource
+apiVersion: extensions/v1beta1 
+kind: Ingress 
+metadata: 
+ name: test-ingress 
+ annotations: 
+   ingress.kubernets.io/rewrite-target: / 
+spec: 
+ rules: 
+   - host: manupanand.online 
+     http: 
+       paths: 
+         - backend: 
+             serviceName: demo 
+             servicePort: 8080
+
+
+#describe
+kubectl describe ingress ingress-name
+
+
+
+
